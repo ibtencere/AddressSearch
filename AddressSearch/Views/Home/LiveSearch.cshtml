@@ -1,0 +1,25 @@
+﻿@using AddressSearch.Models
+@{
+    ViewBag.Title = "Live Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center_content">
+    @Html.Partial("_navMenu")
+
+    <h1>Live Search</h1>
+    <p>Live Search only accepts real addresses by validating them via Google Address Search. When a real address is entered, the following checks are performed:</p>
+    <ol>
+        <li>Has at least 4 characters excluding state name and zip code</li>
+        <li>Contains only following state names and codes: Illinos, IL, Wisconsin, WI, Georgia, GA</li>
+        <li>Has exactly 5 digit ZIP Code</li>
+    </ol>
+    <br />
+
+    @Html.Partial("_searchForm", new SearchModel() { LiveSearch = true })
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ1rOKAzEsF3CB8HfkRjBFFcODxbF-NlA&libraries=places&language=en"></script>
+    <script src="~/Content/adsress-search.js"></script>
+}

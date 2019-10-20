@@ -1,0 +1,10 @@
+﻿@using AddressSearch.HtmlHelpers
+
+<div class="navbar">
+    <ul class="navbar-ul">
+        <li class="@Html.IsSelected("Home","Index")">@Html.ActionLink("Home", "Index", new { controller = "Home" }, htmlAttributes: new { @class = "navbar-link" })</li>
+        <li class="@Html.IsSelected("Home","OflineSearch")">@Html.ActionLink("Ofline Search", "OflineSearch", new { controller = "Home" }, htmlAttributes: new { @class = "navbar-link" })</li>
+        <li class="@Html.IsSelected("Home","LiveSearch")">@Html.ActionLink("Live Search", "LiveSearch", new { controller = "Home" }, htmlAttributes: new { @class = "navbar-link" })</li>
+        <li class="@Html.IsSelected("Home","ExampleAddresses")">@Html.ActionLink("Example Addresses", "ExampleAddresses", new { controller = "Home" }, htmlAttributes: new { @class = "navbar-link" })</li>
+    </ul>
+</div>

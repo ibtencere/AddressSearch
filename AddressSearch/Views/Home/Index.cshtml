@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="center_content">
+        @Html.Partial("_navMenu")
+
+        <h1>Address Search Project</h1>
+        <p>We would like you to build a web page with a single field , containing the text "please type address"</p>
+        <img src="~/Content/images/img1.png" />
+        <p>When a customer clicks on the field, the text will become a label at the top of the box, and the customer will be able to free type a US address into the box.</p>
+        <img src="~/Content/images/img2.png" />
+        <p>As a user starts to type the US address, Google Address Search should offer options on a drop down.</p>
+        <img src="~/Content/images/img3.png" />
+        <p>The user can either choose one of the drop downs, or continue typing. A button below the field which says ‘OK’ will be grey throughout this process, until a ‘complete’ address is entered.</p>
+        <img src="~/Content/images/img4.png" />
+        <p>A complete address would be an address that contains at least a 4 character string, then a State (either state name ‘Texas’ or 2 letter code TX) and a 5 digit ZIP code.</p>
+        <img src="~/Content/images/img5.png" />
+        <p>The product we offer is currently only being offered in the States: Illinois, Georgia, and Wisconsin. Therefore, if OK is clicked but the user has entered any other State, a red ‘error’ message should come up as follows:</p>
+        <img src="~/Content/images/img6.png" />
+        <p>If the user has entered an address with a valid State, after the OK button is clicked, take them to a page that summarises their information as follows:</p>
+        <img src="~/Content/images/img7.png" />
+    </div>

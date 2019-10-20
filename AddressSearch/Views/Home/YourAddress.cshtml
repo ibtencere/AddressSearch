@@ -1,0 +1,24 @@
+﻿@model AddressSearch.Models.AddressModel
+@{
+    ViewBag.Title = "Your Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center_content">
+    @Html.Partial("_navMenu")
+    <p>
+        <b>Thank you for your application</b>
+    </p>
+    <p>
+        <b>Your address is:</b><br />
+        @Model.Address
+    </p>
+    <p>
+        <b>State: </b>
+        @Model.State
+    </p>
+    <p>
+        <b>Zip Code: </b>
+        @Model.PostalCode
+    </p>
+</div>

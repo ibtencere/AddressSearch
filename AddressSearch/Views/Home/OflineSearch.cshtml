@@ -1,0 +1,23 @@
+﻿@using AddressSearch.Models
+@{
+    ViewBag.Title = "Ofline Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center_content">
+    @Html.Partial("_navMenu")
+    <h1>Offline Search</h1>
+    <p>Offline Search doesn't validate address's genuineness. You can enter any imaginary address that follows below rulesets:</p>
+    <ol>
+        <li>Has at least 4 characters excluding state name and zip code</li>
+        <li>Contains only following state names and codes: Illinos, IL, Wisconsin, WI, Georgia, GA</li>
+        <li>Has exactly 5 digit ZIP Code</li>
+    </ol>
+    <br />
+    @Html.Partial("_searchForm", new SearchModel() { LiveSearch = false })
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ1rOKAzEsF3CB8HfkRjBFFcODxbF-NlA&libraries=places&language=en"></script>
+    <script src="~/Content/adsress-search.js"></script>
+}

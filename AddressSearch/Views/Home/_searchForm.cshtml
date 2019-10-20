@@ -1,0 +1,14 @@
+﻿@model AddressSearch.Models.SearchModel
+
+@using (Html.BeginForm("YourAddress", "Home", FormMethod.Post, new { id = "AdressSearchForm" })) {
+    <div class="form__group">
+        <input type="text" id="addressSearch" name="searchValue" data-live="@Model.LiveSearch" class="form__field" value="" required />
+        <label for="addressSearch" class="form__label">Please Type Address</label>
+        <input type="hidden" name="PostalCode" id="postalcode" value="" />
+        <input type="hidden" name="Address" id="address" value="" />
+        <input type="hidden" name="State" id="state" value="" />
+    </div>
+    <div class="text-center mt-5">
+        <button type="submit" class="form__button" id="sendData" disabled>OK</button>
+    </div>
+}

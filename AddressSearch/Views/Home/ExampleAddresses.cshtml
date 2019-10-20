@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Example Addresses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center_content">
+    @Html.Partial("_navMenu")
+
+    <h1>Valid Addresses</h1>
+    <ol>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Manhattan Park District, South State Street, Manhattan, IL 60442, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Phoenix Center Drive, Phoenix, Illinois 60426, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Springfield Road, Lake Geneva, Wisconsin 53176, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Martin Drive, Hartford, WI 53027, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>379-93 Edwards Rd, Oxford, Georgia 30054, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>8424-22 Windmill Dr, Dallas, GA 30132, USA</li>
+    </ol>
+    <hr />
+
+    <h1>Invalid Addresses</h1>
+    <p>Wrong States:</p>
+    <ol>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>98-84 Liberty St, NY 10006, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>41210 Fisher Island Dr, Miami Beach, FL 33109, USA</li>
+    </ol>
+
+    <p>
+        Invalid ZIP Code:
+        <q>3rd address will not work on Live Search because given ZIP Code doesn't belong to given state name, but it will work on Offline Search.</q>
+    </p>
+    <ol>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Phoenix Center Drive, Phoenix, Illinois 6046, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>379-93 Edwards Rd, Oxford, GA 300547, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Phoenix Center Drive, Phoenix, Illinois 53176, USA</li>
+    </ol>
+
+    <p>Short Address:</p>
+    <ol>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Ave WI 53027, USA</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Red GA 30132, USA</li>
+    </ol>
+
+    <p>Other Countries:</p>
+    <ol>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Walton House, 56-58 Richmond Hill, Bournemouth BH2 6EX, UK</li>
+        <li><i class="far fa-clipboard copy-address" data-tooltip="copy"></i>Sultan Ahmet, Ayasofya Meydanı, 34122 Fatih/İstanbul</li>
+    </ol>
+
+</div>
+
+@section scripts {
+    <script>
+        $('.copy-address').click(function () {
+            let copyText = $(this).parent()[0].textContent;
+            copyText = copyText.substring(4, copyText.length);
+            let $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(copyText).select();
+            document.execCommand("copy");
+            $temp.remove();
+        });
+
+        $(document).ready(function () {
+            $(".copy-address").hover(function () {
+                $('.tooltip').remove();
+                $(this).css('position', 'relative');
+                var $toolTiptext = $(this).attr("data-tooltip");
+                $(this).append("<div class='tooltip'>" + $toolTiptext + "</div>");
+            }, function () {
+                $(this).css('position', '');
+                $('.tooltip').remove();
+            });
+        });
+    </script>
+}
