@@ -13,7 +13,7 @@ let addressData = {
 
 function initialize() {
     autocomplete = new google.maps.places.Autocomplete(
-        $('#addressSearch')[0], {}
+        $('#addressSearch')[0], { types: ['address'] }
     );
     autocomplete.setFields(['address_component']);
     autocomplete.addListener('place_changed', placeChanged);
@@ -59,10 +59,10 @@ $(document).ready(function () {
                     if (value.trim() !== "") {
                         newAddress += value;
                         if (index < addressArr.length) {
-                                newAddress += ",";
+                            newAddress += ",";
                         }
                     }
-                    
+
                 });
 
                 if (newAddress.lastIndexOf(",") === newAddress.length - 1) {
@@ -142,7 +142,9 @@ $(document).ready(function () {
     );
 });
 
-$(document).on('keyup', '#addressSearch', function () {
+
+let keyCount = 0, setCount = 0;
+$(document).on('keyup focus click', '#addressSearch', function () {
     if (this.dataset.live === "True") {
         let textVal = this.value.replace(/\n/g, "");
         let geocoder = new google.maps.Geocoder();
@@ -182,9 +184,66 @@ $(document).on('keyup', '#addressSearch', function () {
             });
         }
     }
+
+    setTimeout(setDropdown, 250);
+    keyCount++;
 });
 
 function placeChanged() {
-    $('#addressSearch').trigger('keyup');
-    $('#AdressSearchForm').validate().element("#addressSearch");
+    let address_text = $('#addressSearch').val();
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address_text }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            let address_components = results[0].address_components;
+            for (let i = 0; i < address_components.length; i++) {
+                let component = address_components[i];
+                let addressType = component.types[0];
+                if (addressType === 'postal_code') {
+                    if (!address_text.includes(component.long_name)) {
+                        $('#addressSearch').val(address_text + " " + component.long_name);
+                        $('#addressSearch').trigger('focus');
+                        $('#AdressSearchForm').validate().element("#addressSearch");
+                    }
+                }
+            }
+        }
+    });
+}
+
+function setDropdown() {
+    if (keyCount === ++setCount) {
+        let pac_items = $('.pac-item');
+        pac_items.map((index, pac) => {
+            let address_text = "";
+            let hasZipCode = false;
+
+            $(pac.children).map((i, e) => {
+                if (!$(e).hasClass('pac-icon')) {
+                    address_text += e.textContent + " ";
+                } else if ($(e).hasClass('zip-code')) {
+                    hasZipCode = true;
+                }
+            });
+
+            if (!hasZipCode) {
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': address_text }, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        let address_components = results[0].address_components;
+                        for (let i = 0; i < address_components.length; i++) {
+                            let component = address_components[i];
+                            let addressType = component.types[0];
+                            if (addressType === 'postal_code') {
+                                if (!address_text.includes(component.long_name)) {
+                                    let span = $("<span>");
+                                    $(span).addClass('zip-code').append(" " + component.long_name);
+                                    $(pac).append(span);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
 }
